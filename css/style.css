@@ -1,0 +1,51 @@
+body {
+     text-align: center;
+}
+
+ .title-text {
+     width: 505px;
+     position: fixed;
+     display: inline-block;
+     margin-top: 30px;
+}
+
+ .score {
+     float: left;
+}
+
+ .life {
+     float: right;
+}
+
+ .fade-bg {
+     background: rgba(255,255, 255, 1);
+     display: none;
+     position: fixed;
+     z-index: 1;
+     width: 100%;
+     height: 100%;
+     overflow: auto;
+     padding-top: 150px;
+}
+
+ button {
+     font: 16px Roboto-Bold;
+     background: #4A5;
+     border: none;
+     color: #fff;
+     padding: 10px;
+     text-align: center;
+     text-decoration: none;
+     display: inline-block;
+     margin: 4px 2px;
+     border-radius: 4px;
+     -webkit-transition: all .35s ease-in-out;
+     -moz-transition: all .35s ease-in-out;
+     -o-transition: all .35s ease-in-out;
+     transition: all .35s ease-in-out;
+}
+
+ button:hover {
+     cursor: pointer;
+     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+}
