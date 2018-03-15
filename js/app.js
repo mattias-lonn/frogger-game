@@ -4,7 +4,7 @@ let playerScore = 0,
 
 // Enemies our player must avoid
 class Enemy {
-    constructor(y, x, direction, type) {
+    constructor(y, direction, type) {
         this.sprite = 'images/enemy-bug.png';
         this.y = y;
         this.x = -100;
@@ -18,6 +18,7 @@ class Enemy {
 
     update(dt) {
 
+		// If the enemy comes fron the left
         if (this.direction === 'left') {
             if (this.x <= 505) {
                 this.x += this.speed * dt;
@@ -25,7 +26,8 @@ class Enemy {
                 this.x = -100;
             }
         }
-
+		
+		// If the enemy comes fron the right
         if (this.direction === 'right') {
             if (this.type === 'shark') {
                 this.sprite = 'images/shark-fin.png';
@@ -47,8 +49,8 @@ class Enemy {
     }
 }
 
-
-class Ghost {
+// When player "dies" he becomes an angel.
+class Angel {
     constructor(y, x) {
         this.sprite = 'images/char-boy-dead.png';
         this.y = y;
@@ -57,7 +59,6 @@ class Ghost {
     }
 
     update(dt) {
-
         if (this.y >= 0) {
             this.y -= this.speed * dt;
         } else {
@@ -122,7 +123,7 @@ class Player {
 			// Gains a life for every + 5 in score
             if (playerScore % 5 === 0) {
                 playerLifes++;
-                $('#player-life').html("&#10084; ".repeat(playerLifes));
+                $('#player-life').html("❤ ".repeat(playerLifes));
             }
 
             this.reset();
@@ -130,7 +131,7 @@ class Player {
     }
 
 
-
+	// Draws the player
     render() {
         ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     }
@@ -140,22 +141,20 @@ class Player {
     }
 
 
-
+	// Resets players position
     reset() {
-        this.sprite = 'images/char-boy.png';
         this.x = 200;
         this.y = 400;
     }
 
-
+	// Player get smashed by an enemy and died
     died() {
-
         playerDeaths++;
         playerLifes--;
 
 		// If the player gets Game Over
         if (playerLifes === 0) {
-            $('#player-life').html('&#9785;');
+            $('#player-life').html('☹');
             $('.message').html('Game Over! <br> <button class="new">Play Again!</button>');
             $('.fade-bg').fadeToggle('slow', 'linear');
 
@@ -165,18 +164,18 @@ class Player {
                 playerLifes = 3;
 
                 $('#player-score').html(playerScore);
-                $('#player-life').html("&#10084; &#10084; &#10084;");
+                $('#player-life').html("❤ ❤ ❤");
                 $('.fade-bg').fadeToggle('slow', 'linear');
             });
         }
 		
 		// Player loses one life
 		else if (playerLifes > 0) {
-            $('#player-life').html("&#10084; ".repeat(playerLifes));
+            $('#player-life').html("❤ ".repeat(playerLifes));
         }
 
 		// If player dies, player becomes an angel
-        allEnemies.push(new Ghost(this.y, this.x));
+        allEnemies.push(new Angel(this.y, this.x));
         this.x = 200;
         this.y = 400;
     }
@@ -187,10 +186,10 @@ const player = new Player();
 const allEnemies = [];
 
 // Adds ours enemies
-allEnemies.push(new Enemy(230, 50, 'left'));
-allEnemies.push(new Enemy(145, 140, 'right'));
-allEnemies.push(new Enemy(60, 230, 'left'));
-allEnemies.push(new Enemy(-20, 50, 'right', 'shark'));
+allEnemies.push(new Enemy(230, 'left'));
+allEnemies.push(new Enemy(145, 'right'));
+allEnemies.push(new Enemy(60, 'left'));
+allEnemies.push(new Enemy(-20, 'right', 'shark'));
 
 
 // This listens for key presses and sends the keys to your
