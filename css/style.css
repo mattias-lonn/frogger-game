@@ -28,6 +28,10 @@ body {
      padding-top: 150px;
 }
 
+.message {
+	font-size: 25pt;
+}
+
  button {
      font: 16px Roboto-Bold;
      background: #4A5;
